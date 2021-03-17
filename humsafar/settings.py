@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from django.contrib import messages
 import os
+
 
 from pathlib import Path
 
@@ -120,10 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'email id use for sending email'
