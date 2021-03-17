@@ -12,7 +12,6 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.core.mail import send_mail
-from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .utils import account_activation_token
@@ -55,6 +54,8 @@ class RegistrationView(View):
 
         username = request.POST['username']
         email = request.POST['email']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
         password = request.POST['password']
 
         context = {
@@ -70,6 +71,8 @@ class RegistrationView(View):
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password)
                 user.is_active = False
+                user.first_name = first_name
+                user.last_name = last_name
                 user.save()
                 current_site = get_current_site(request)
                 email_body = {
