@@ -7,8 +7,8 @@ class ride(models.Model):
     email = models.EmailField(default="example@gmail.com")
     location = models.TextField(max_length=20)
     destination = models.TextField(max_length=20)
-    nop = models.IntegerFiel(validators=[MinValueValidator(1), MaxValueValidator(10)])
-    avgspeed = models.IntegerFiel(validators=[MinValueValidator(30), MaxValueValidator(150)])
+    nop = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    avgspeed = models.IntegerField(validators=[MinValueValidator(30), MaxValueValidator(150)])
     date = models.DateField()
     
     
