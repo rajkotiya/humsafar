@@ -1,0 +1,126 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>HOME</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body>
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/" class="logo">HUMSAFAR</a>
+					<nav id="nav">
+						<a href="/">Home</a>
+						<a href="/contactus/">Contact us</a>
+						<a href="/aboutus/">About us</a>
+						{% if user.is_authenticated %}
+							Hello, {{user.username}}
+							<a href="/creatride/">Creat Ride</a>
+							<a href="/serchride/">Serch Ride</a>
+							<a href="/profilepage/">profile</a>
+							<a href="/authentication/logout">Logout</a>
+						{% else %}	
+							<a href="/authentication/register">Register</a>
+							<a href="/authentication/login">Login</a>
+						{% endif %}	
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+			
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+
+					<h3>CREAT ride</h3>
+				{% block content %}	
+					<form method="post" enctype="multipart/form-data">
+
+                    	{% csrf_token %}
+
+
+						<div class="field half">
+							<label for="location">Location</label>
+							<input name="location" id="name" type="text" placeholder="Location">
+						</div> 
+						<div class="field half">
+							<label for="destination">Destination</label>
+							<input name="destination" id="name" type="text" placeholder="Destination">
+						</div>
+						<div class="field half">
+							<label for="date">Date</label>
+							<input name="date" id="name" type="date" placeholder="DATE">
+						</div>
+						<ul class="actions">
+							<li><input value="Submit" class="button alt" type="submit"></li>
+						</ul>
+                        
+					</form>
+				{% endblock %}
+					<section id="three" class="wrapper align-center">
+						<div class="outer" style="border:2px solid green">
+							<div class="flex flex-2" sta>
+							{% for i in rides %}
+								<article style="border:2px solid green" >
+									<br>
+									<label for="Destination">Destination</label>
+									<p>{{i.destination}}</p>
+									<br>
+									<label for="location">Location</label>
+									<p>{{i.location}}</p>
+									<header>
+										<h5>DATE:{{i.date}}</h5>
+									</header>
+		
+								</article>
+		
+							{% endfor %}
+		
+							</div>
+						</div>
+					</section>
+	
+                   
+
+				</div>
+			</footer>
+            <section id="three" class="wrapper align-center">
+				<div class="outer" style="border:2px solid green">
+					<div class="flex flex-2" sta>
+                    {% for i in rides %}
+                		<article style="border:2px solid green" >
+							<br>
+                            <label for="Destination">Destination</label>
+                            <p>{{i.destination}}</p>
+                            <br>
+							<label for="location">Location</label>
+                            <p>{{i.location}}</p>
+                            <header>
+								<h5>DATE:{{i.date}}</h5>
+							</header>
+
+						</article>
+
+                    {% endfor %}
+
+					</div>
+				</div>
+			</section>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js'}"></script>
+			<script src="{% static 'assets/js/skel.min.js'}"></script>
+			<script src="{% static 'assets/js/util.js'}"></script>
+			<script src="{% static 'assets/js/main.js'}"></script>
+	</body>
+</html>

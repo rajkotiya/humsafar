@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Contact Us</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/" class="logo">HUMSAFAR</a>
+					<nav id="nav">
+						<a href="/">Home</a>
+						<a href="/contactus/">Contact us</a>
+						<a href="/aboutus/">About us</a>
+						{% if user.is_authenticated %}
+							Hello, {{user.username}}
+							<a href="postpage/">postpage</a>
+							<a href="creatride/">Creat Ride</a>
+							<a href="serchride/">Serch Ride</a>
+							<a href="profilepage/">profile</a>
+							<a href="authentication/logout">Logout</a>
+						{% else %}	
+							<a href="/authentication/register">Register</a>
+							<a href="/authentication/login">Login</a>
+						{% endif %}	
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+<!-- Section: Team v.1 -->
+<section class="team-section text-center my-5">
+
+  <!-- Section heading -->
+  <h2 class="h1-responsive font-weight-bold my-5">Our Team</h2>
+  <!-- Section description -->
+
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+      <bl>
+    <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+      <div class="avatar mx-auto">
+        <img src="{% static 'images/pic01.jpg' %}" class="rounded-circle z-depth-1"
+          alt="Man Rajkotiya">
+      </div>
+      <h5 class="font-weight-bold mt-4 mb-3">Man Rajkotiya</h5>
+      <p class="text-uppercase blue-text"><strong>Sophomore Student</strong></p>
+      <p class="grey-text">Email Id : rajkotiya.1@iitj.ac.in</p>
+      <ul class="list-unstyled mb-0">
+        <!-- Facebook -->
+        <a href="">
+        
+        </a>
+
+        <!-- github -->
+        <a class="p-2 fa-lg ins-ic">
+          <i class="fab fa-instagram blue-text"> </i>
+        </a>
+      </ul>
+    </div>
+      </bl>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+      <div class="avatar mx-auto">
+        <img src="{% static 'images/pic02.jpg' %}" class="rounded-circle z-depth-1"
+          alt="Hard Savani">
+      </div>
+      <h5 class="font-weight-bold mt-4 mb-3">Hard Savani</h5>
+      <p class="text-uppercase blue-text"><strong>Sophomore Student</strong></p>
+      <p class="grey-text">Email-id : hard.1@iitj.ac.in</p>
+      <ul class="list-unstyled mb-0">
+        <!-- Facebook -->
+        <a class="p-2 fa-lg fb-ic">
+          <i class="fab fa-facebook-f blue-text"> </i>
+        </a>
+        <!-- Instagram -->
+        <a class="p-2 fa-lg ins-ic">
+          <i class="fab fa-instagram blue-text"> </i>
+        </a>
+      </ul>
+    </div>
+    <!-- Grid column -->
+  </div>
+  <!-- Grid row -->
+<!-- Form -->
+									<h3>Suggestion</h3>
+                                    {% block content %}
+									<form method="post" action="#" >
+                                        {% csrf_token %}
+										<div class="row uniform">
+											{% comment %} <div class="6u 12u$(xsmall)">
+												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+											</div>
+											<!-- Break --> {% endcomment %}
+											{% comment %} <div class="12u$">
+												<div class="select-wrapper">
+													<select name="demo-category" id="demo-category">
+														<option value="0" >Category</option>
+														<option value="1" >General Query</option>
+														<option value="1">Feedback</option>
+														<option value="1">Concern</option>
+														<option value="1">Technical issue</option>
+													</select>
+												</div>
+											</div> {% endcomment %}
+											<!-- Break -->
+
+											<!-- Break -->
+											{% comment %} <div class="6u 12u$(small)">
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Email me a copy of this message</label>
+											</div>
+											<div class="6u$ 12u$(small)">
+												<input type="checkbox" id="demo-human" name="demo-human" checked>
+												<label for="demo-human">I am a human and not a robot</label>
+											</div> {% endcomment %}
+											<!-- Break -->
+											<div class="12u$">
+												<textarea name="demo-message" id="demo-message" placeholder="Enter your suggestion" rows="6"></textarea>
+											</div>
+											<!-- Break -->
+											<div class="12u$">
+												<ul class="actions">
+													<li><input type="submit" value="Send Message" /></li>
+													<li><input type="reset" value="Reset" class="alt" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+                                    {% endblock %}
+									<hr />
+
+
+
+
+
+</section>
+<!-- Section: Team v.1 -->
+</html>

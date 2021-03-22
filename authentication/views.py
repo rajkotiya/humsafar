@@ -17,7 +17,7 @@ from django.template.loader import render_to_string
 from .utils import account_activation_token
 from django.urls import reverse
 from django.contrib import auth
-
+from django.core.mail import send_mail
 # Create your views here.
 
 
@@ -70,34 +70,35 @@ class RegistrationView(View):
 
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password)
-                user.is_active = False
+                # user.is_active = False
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                current_site = get_current_site(request)
-                email_body = {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                }
+                # current_site = get_current_site(request)
+                # email_body = {
+                #     'user': user,
+                #     'domain': current_site.domain,
+                #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                #     'token': account_activation_token.make_token(user),
+                # }
 
-                link = reverse('activate', kwargs={
-                               'uidb64': email_body['uid'], 'token': email_body['token']})
+                # link = reverse('activate', kwargs={
+                #                'uidb64': email_body['uid'], 'token': email_body['token']})
 
-                email_subject = 'Activate your account'
+                # email_subject = 'Activate your account'
 
-                activate_url = 'http://'+current_site.domain+link
-
-                email = EmailMessage(
-                    email_subject,
-                    'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
-                    'noreply@semycolon.com',
-                    [email],
-                )
-                email.send(fail_silently=False)
-                messages.success(request, 'Account successfully created')
-                return render(request, 'authentication/register.html')
+                # activate_url = 'http://'+current_site.domain+link
+                # email_message = 'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url
+                # # email_message = EmailMessage(
+                # #     email_subject,
+                # #     'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
+                # #     'manpatel671@gmail.com',
+                # #     [user.email],
+                # # )
+                # # email_message.send(fail_silently=False)
+                # send_mail(email_subject,email_message,'manpatel671@gmail.com',[user.email],fail_silently = True)
+                # messages.success(request, 'Account successfully created')
+                # return render(request, 'authentication/register.html')
 
         return render(request, 'authentication/register.html')
 
@@ -139,23 +140,17 @@ class LoginView(View):
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, 'Welcome, ' +
-                                     user.username+' you are now logged in')
-                    return redirect('expenses')
-                messages.error(
-                    request, 'Account is not active,please check your email')
+                    messages.success(request, 'Welcome, ' + user.username +' you are now logged in')
+                    return redirect('home')
+                messages.error(equest, 'Account is not active,please check your email')
                 return render(request, 'authentication/login.html')
-            messages.error(
-                request, 'Invalid credentials,try again')
+            messages.error(request, 'Invalid credentials,try again')
             return render(request, 'authentication/login.html')
 
-        messages.error(
-            request, 'Please fill all fields')
+        messages.error(request, 'Please fill all fields')
         return render(request, 'authentication/login.html')
 
 
-class LogoutView(View):
-    def post(self, request):
-        auth.logout(request)
-        messages.success(request, 'You have been logged out')
-        return redirect('login')
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

@@ -126,13 +126,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'humsafar/static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'email id use for sending email'
-EMAIL_HOST_PASSWORD = 'password of email'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'default email id'
+# MESSAGE_TAGS = {
+#     messages.ERROR: 'danger'
+# }
+# EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.net'
+# EMAIL_HOST_USER = 'email'
+# EMAIL_HOST_PASSWORD = 'password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'email
