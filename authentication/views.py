@@ -17,7 +17,8 @@ from django.template.loader import render_to_string
 from .utils import account_activation_token
 from django.urls import reverse
 from django.contrib import auth
-from django.core.mail import send_mail
+
+from django.conf import settings
 # Create your views here.
 
 
@@ -53,7 +54,7 @@ class RegistrationView(View):
         # create a user account
 
         username = request.POST['username']
-        email = request.POST['email']
+        email_id = request.POST['email']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         password = request.POST['password']
@@ -63,42 +64,47 @@ class RegistrationView(View):
         }
 
         if not User.objects.filter(username=username).exists():
-            if not User.objects.filter(email=email).exists():
+            if not User.objects.filter(email=email_id).exists():
                 if len(password) < 6:
                     messages.error(request, 'Password too short')
                     return render(request, 'authentication/register.html', context)
 
-                user = User.objects.create_user(username=username, email=email)
+                user = User.objects.create_user(username=username, email=email_id)
                 user.set_password(password)
                 # user.is_active = False
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                # current_site = get_current_site(request)
-                # email_body = {
-                #     'user': user,
-                #     'domain': current_site.domain,
-                #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                #     'token': account_activation_token.make_token(user),
-                # }
+                current_site = get_current_site(request)
+                email_body = {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                }
 
-                # link = reverse('activate', kwargs={
-                #                'uidb64': email_body['uid'], 'token': email_body['token']})
+                link = reverse('activate', kwargs={'uidb64': email_body['uid'], 'token': email_body['token']})
 
-                # email_subject = 'Activate your account'
+                email_subject = 'Activate your account'
 
-                # activate_url = 'http://'+current_site.domain+link
-                # email_message = 'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url
-                # # email_message = EmailMessage(
-                # #     email_subject,
-                # #     'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
-                # #     'manpatel671@gmail.com',
-                # #     [user.email],
-                # # )
-                # # email_message.send(fail_silently=False)
-                # send_mail(email_subject,email_message,'manpatel671@gmail.com',[user.email],fail_silently = True)
-                # messages.success(request, 'Account successfully created')
-                # return render(request, 'authentication/register.html')
+                activate_url = 'http://'+current_site.domain+link
+                email_message = 'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url
+                print(email_subject)
+                print(email_message)
+                print(settings.EMAIL_HOST_USER)
+                print(user.email)
+
+                # email = EmailMessage(
+                #     email_subject,
+                #     email_message,
+                #     settings.EMAIL_HOST_USER,
+                #     [user.email],
+                # )
+                # email.fail_silently=False
+                # email.send()
+                send_mail(email_subject,email_message,settings.EMAIL_HOST_USER,[user.email],fail_silently = True)
+                messages.success(request, 'Account successfully created')
+                return render(request, 'authentication/register.html')
 
         return render(request, 'authentication/register.html')
 
