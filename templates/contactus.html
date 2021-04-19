@@ -12,6 +12,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		
 	</head>
 	<body class="subpage">
 
@@ -25,10 +26,10 @@
 						<a href="/aboutus/">About us</a>
 						{% if user.is_authenticated %}
 							Hello, {{user.username}}
-							<a href="creatride/">Creat Ride</a>
-							<a href="serchride/">Serch Ride</a>
-							<a href="profilepage/">profile</a>
-							<a href="authentication/logout">Logout</a>
+							<a href="/creatride/">Creat Ride</a>
+							<a href="/serchride/">Serch Ride</a>
+							<a href="/profilepage/">profile</a>
+							<a href="/authentication/logout">Logout</a>
 						{% else %}	
 							<a href="/authentication/register">Register</a>
 							<a href="/authentication/login">Login</a>
@@ -57,17 +58,23 @@
       <h5 class="font-weight-bold mt-4 mb-3">Man Rajkotiya</h5>
       <p class="text-uppercase blue-text"><strong>Sophomore Student</strong></p>
       <p class="grey-text">Email Id : rajkotiya.1@iitj.ac.in</p>
-      <ul class="list-unstyled mb-0">
+	  <ul class="list-unstyled mb-0"></ul>
         <!-- Facebook -->
-        <a href="">
-        
-        </a>
+        <a href="https://www.facebook.com/man.patel.9047/">
+			Facebook
+		  </a> <br>
+		<!-- Facebook -->
+        <a href="https://github.com/rajkotiya/">
+          Github
+        </a> <br>
+        <!-- Linkedin -->
+		<!-- Facebook -->
+        <a href="https://www.linkedin.com/mwlite/in/man-rajkotiya-12a987199">
+			Linkedin
+		  </a> <br>
 
-        <!-- github -->
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-instagram blue-text"> </i>
-        </a>
       </ul>
+      
     </div>
       </bl>
     <!-- Grid column -->
@@ -76,18 +83,18 @@
     <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
       <div class="avatar mx-auto">
         <img src="{% static 'images/pic02.jpg' %}" class="rounded-circle z-depth-1"
-          alt="Hard Savani">
+          alt="Ronak Sanghvi">
       </div>
-      <h5 class="font-weight-bold mt-4 mb-3">Hard Savani</h5>
+      <h5 class="font-weight-bold mt-4 mb-3">Ronak Sanghvi</h5>
       <p class="text-uppercase blue-text"><strong>Sophomore Student</strong></p>
-      <p class="grey-text">Email-id : hard.1@iitj.ac.in</p>
+      <p class="grey-text">Email-id : singhvi.1@iitj.ac.in</p>
       <ul class="list-unstyled mb-0">
         <!-- Facebook -->
-        <a class="p-2 fa-lg fb-ic">
+        <a class="p-2 fa-lg fb-ic" herf="https://www.linkedin.com/mwlite/in/man-rajkotiya-12a987199">
           <i class="fab fa-facebook-f blue-text"> </i>
         </a>
         <!-- Instagram -->
-        <a class="p-2 fa-lg ins-ic">
+        <a class="p-2 fa-lg ins-ic" herf="https://www.linkedin.com/mwlite/in/man-rajkotiya-12a987199">
           <i class="fab fa-instagram blue-text"> </i>
         </a>
       </ul>

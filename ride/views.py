@@ -8,10 +8,10 @@ def creatride(request):
     if request.method == 'POST':
         location_i = request.POST['location']
         location_i = location_i.lower()
-        print(location_i)
+        # print(location_i)
         destination_i = request.POST['destination']
         destination_i =  destination_i.lower()
-        print(destination_i)
+        # print(destination_i)
         nop_i = request.POST['nop']
         avgspeed_i  = request.POST['avgspeed']
         DATE = request.POST['date'] 
@@ -45,13 +45,13 @@ def serchride(request):
         destination_i = request.POST['destination']
         DATE = request.POST['date']
         destination_i = destination_i.lower()
-        print(destination_i)
+        # print(destination_i)
         # print(DATE)
-        print(date.today())
+        # print(date.today())
         date_mask = "%Y-%m-%d"
         date_i = datetime.strptime(DATE,date_mask)
         # date_i = datetime.strftime(date_i,date_mask)
-        print(date_i)
+        # print(date_i)
         if request.user.is_authenticated:
             rides1 = ride.objects.all().filter(location = location_i)
             rides = rides1.filter(destination = destination_i)
