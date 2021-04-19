@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from .models import ride
+from datetime import date
+from datetime import datetime
 def creatride(request):
     if request.method == 'POST':
         location_i = request.POST['location']
@@ -12,13 +14,22 @@ def creatride(request):
         print(destination_i)
         nop_i = request.POST['nop']
         avgspeed_i  = request.POST['avgspeed']
-        date_i = request.POST['date'] 
-        
+        DATE = request.POST['date'] 
+        # print(DATE)
+        print(date.today())
+        date_mask = "%Y-%m-%d"
+        date_i = datetime.strptime(DATE,date_mask)
+        # date_i = datetime.strftime(date_i,date_mask)
         if request.user.is_authenticated:
-            Ride = ride(user = request.user,location = location_i,destination = destination_i, nop = nop_i,avgspeed = avgspeed_i, date = date_i)
-            Ride.save()
-            print("ride created")
-            return redirect('/')
+            if datetime.today() < date_i:
+                Ride = ride(user = request.user,location = location_i,destination = destination_i, nop = nop_i,avgspeed = avgspeed_i, date = date_i)
+                Ride.save()
+                print("ride created")
+                return redirect('/')
+            else:
+                messages.info(request, 'Please enter future or present date')
+                return render(request, 'creatride.html')
+
         else:
             messages.info(request, 'Please login to creat ride')
             return redirect('authentication/login')
@@ -32,18 +43,31 @@ def serchride(request):
         location_i = location_i.lower()
         print(location_i)
         destination_i = request.POST['destination']
+        DATE = request.POST['date']
         destination_i = destination_i.lower()
         print(destination_i)
+        # print(DATE)
+        print(date.today())
+        date_mask = "%Y-%m-%d"
+        date_i = datetime.strptime(DATE,date_mask)
+        # date_i = datetime.strftime(date_i,date_mask)
+        print(date_i)
         if request.user.is_authenticated:
             rides1 = ride.objects.all().filter(location = location_i)
             rides = rides1.filter(destination = destination_i)
-            data = { 'rides': rides}
+            if datetime.today() < date_i:
+                rides = rides.filter(date = date_i)
+                data = { 'rides': rides}
+                return render(request, 'serchresult.html', data)
+            else:
+                messages.info(request, 'Please enter future or present date')
+                return render(request, 'serchride.html')
+            # print(rides.count())
            
-            print(rides.count())
-            return render(request, 'serchresult.html', data)
         else:
             messages.info(request, 'Please login to creat ride')
             return redirect('authentication/login')
+        
     else:
         return render(request, 'serchride.html')
 

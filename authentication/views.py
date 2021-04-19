@@ -104,7 +104,7 @@ class RegistrationView(View):
                 # email.send()
                 send_mail(email_subject,email_message,settings.EMAIL_HOST_USER,[user.email],fail_silently = True)
                 messages.success(request, 'Account successfully created')
-                return render(request, 'authentication/register.html')
+                return render(request, 'authentication/login.html')
 
         return render(request, 'authentication/register.html')
 
