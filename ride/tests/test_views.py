@@ -23,6 +23,8 @@ class Testviews(TestCase):
         self.aboutus_url = reverse('aboutus')
         self.registration_url = reverse('register')
         self.home_urls = reverse('home')
+        self.login_url = reverse('login')
+        self.logout_url = reverse('logout')
         
 
     def testcreatride(self):
@@ -56,3 +58,17 @@ class Testviews(TestCase):
         self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'home.html')
     
+    def testregistration(self):
+        response = self.client.get(self.registration_url)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'authentication/register.html')
+    
+    def testlogin(self):
+        response = self.client.get(self.login_url)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'authentication/login.html')
+    
+    def testlogout(self):
+        response = self.client.get(self.logout_url)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'home.html')

@@ -159,4 +159,4 @@ class LoginView(View):
 
 def logout(request):
     auth.logout(request)
-    return redirect('/')
+    return render(request,'home.html')
