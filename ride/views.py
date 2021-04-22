@@ -21,11 +21,15 @@ def creatride(request):
         date_i = datetime.strptime(DATE,date_mask)
         # date_i = datetime.strftime(date_i,date_mask)
         if request.user.is_authenticated:
+            if len(location_i) == 0 or len(destination_i) == 0:
+                messages.info(request, 'Please enter valid ')
+                return render(request, 'serchride.html')
+
             if datetime.today() < date_i:
                 Ride = ride(user = request.user,location = location_i,destination = destination_i, nop = nop_i,avgspeed = avgspeed_i, date = date_i)
                 Ride.save()
                 print("ride created")
-                return redirect('/')
+                return render(request,'home.html')
             else:
                 messages.info(request, 'Please enter future or present date')
                 return render(request, 'creatride.html')
@@ -45,6 +49,10 @@ def serchride(request):
         destination_i = request.POST['destination']
         DATE = request.POST['date']
         destination_i = destination_i.lower()
+        if len(location_i) == 0 or len(destination_i) == 0:
+            messages.info(request, 'Please enter valid ')
+            return render(request, 'serchride.html')
+
         # print(destination_i)
         # print(DATE)
         # print(date.today())
@@ -66,7 +74,7 @@ def serchride(request):
            
         else:
             messages.info(request, 'Please login to creat ride')
-            return redirect('authentication/login')
+            return render('authentication/login')
         
     else:
         return render(request, 'serchride.html')
