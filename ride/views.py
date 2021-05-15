@@ -8,14 +8,14 @@ def creatride(request):
     if request.method == 'POST':
         location_i = request.POST['location']
         location_i = location_i.lower()
-        # print(location_i)
         destination_i = request.POST['destination']
         destination_i =  destination_i.lower()
-        # print(destination_i)
         nop_i = request.POST['nop']
         avgspeed_i  = request.POST['avgspeed']
         DATE = request.POST['date'] 
         # print(DATE)
+        print(type(DATE))
+
         print(date.today())
         date_mask = "%Y-%m-%d"
         date_i = datetime.strptime(DATE,date_mask)
@@ -49,7 +49,7 @@ def serchride(request):
         destination_i = request.POST['destination']
         DATE = request.POST['date']
         destination_i = destination_i.lower()
-        if len(location_i) == 0 or len(destination_i) == 0:
+        if len(location_i) == 0 or len(destination_i) == 0 or len(DATE) == 0:
             messages.info(request, 'Please enter valid ')
             return render(request, 'serchride.html')
 

@@ -11,6 +11,4 @@ urlpatterns = [
     path('contactus/', views.contactus, name ='contactus'),
     path('aboutus/', views.aboutus, name ='aboutus'),
     path('profilepage/', views.profilepage, name='profilepage'),
-    
-
 ]

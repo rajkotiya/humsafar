@@ -148,7 +148,7 @@ class LoginView(View):
                     auth.login(request, user)
                     messages.success(request, 'Welcome, ' + user.username +' you are now logged in')
                     return redirect('home')
-                messages.error(equest, 'Account is not active,please check your email')
+                messages.error(request, 'Account is not active,please check your email')
                 return render(request, 'authentication/login.html')
             messages.error(request, 'Invalid credentials,try again')
             return render(request, 'authentication/login.html')
