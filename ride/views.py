@@ -12,7 +12,10 @@ def creatride(request):
         destination_i =  destination_i.lower()
         nop_i = request.POST['nop']
         avgspeed_i  = request.POST['avgspeed']
-        DATE = request.POST['date'] 
+        DATE = request.POST['date']
+        acnonac =request.POST.get('AC')
+        money = request.POST.get('money')
+        print(acnonac)
         # print(DATE)
         print(type(DATE))
 
@@ -40,6 +43,10 @@ def creatride(request):
        
     else:
         return render(request, 'creatride.html')
+
+def deleteone(request,cid):
+    ride.objects.get(pk=cid).delete()
+    return redirect('profilepage')
 
 def serchride(request):
     if request.method == 'POST':

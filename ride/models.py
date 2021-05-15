@@ -9,6 +9,8 @@ class ride(models.Model):
     destination = models.TextField(max_length=20)
     nop = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     avgspeed = models.IntegerField(validators=[MinValueValidator(30), MaxValueValidator(150)])
+    money = models.IntegerField(validators=[MinValueValidator(10), MaxValueValidator(5000)] ,default= 10)
+    acnonac = models.BooleanField(null= True, default= True)
     date = models.DateField()
     
     
